@@ -4,14 +4,8 @@
 
 'use strict'
 
-const aasync = require('asyncawait/async')
-
-const glob = require('glob')
 const yargs = require('yargs')
-
-const awaitHelpers = require('./await_helpers.js')
-const common = require('./common.js')
-
+const uploader = require('./uploader')
 
 if (!yargs.argv._ || yargs.argv._.length !== 4) {
   console.log(`
@@ -35,7 +29,7 @@ Usage:  ${common.PROGRAM_NAME} [OPTIONS] <PATH> <VERSION> <APP_URL> <ORG_TOKEN> 
   =============
 
   --pattern : the MAP files search pattern. Defaults to '**/*.map'
-  --strip-prefix : the prefix to the MAP files in your NPM package, defaults to 'dist'.
+  --strip-prefix : the prefix to the MAP files, defaults to 'dist'.
       For instance, if your MAP files look like './built-app/dist/libraries/js/foo.map'
       and the MAP file itself is hosted at '<APP_URL>/libraries/js/foo.map', then
       the appropriate prefix would be 'built-app/dist'.
@@ -46,34 +40,12 @@ Usage:  ${common.PROGRAM_NAME} [OPTIONS] <PATH> <VERSION> <APP_URL> <ORG_TOKEN> 
 const dirPath = yargs.argv._[0]
 const pkgVersion = yargs.argv._[1]
 const appUrl = yargs.argv._[2]
-const orgToken = new Buffer(`${yargs.argv._[3]}:`).toString('base64')
+const orgToken = yargs.argv._[3]
 const sentryProject = yargs.argv._[4]
 
-const mapFilePattern = yargs.argv.pattern || '**/*.map'
-const stripPrefix = yargs.argv.stripPrefix || 'dist'
+const sentryUrl = yargs.argv.sentryUrl
+const sentryOrganization = yargs.argv.sentryOrganization
+const mapFilePattern = yargs.argv.pattern
+const stripPrefix = yargs.argv.stripPrefix
 
-const sentryUrl = yargs.argv.sentryUrl || 'https://app.getsentry.com'
-const sentryOrganization = yargs.argv.sentryOrganization || 'sentry'
-const releaseUrl = `${sentryUrl}/api/0/projects/${sentryOrganization}/${sentryProject}/releases/`
-const releaseFilesUrl = `${releaseUrl}${pkgVersion}/files/`
-
-if (require.main === module) {
-  aasync(function () {
-    const releasePostResponse = common.createSentryRelease(releaseUrl, pkgVersion, orgToken)
-    if (releasePostResponse.response.statusCode !== 200) {
-      const errMessage = releasePostResponse.response.body.detail || releasePostResponse.response.body
-      console.log('[warning, release creation] Sentry replied with: ' +
-                  `${releasePostResponse.response.statusCode}: '${errMessage}'`)
-    }
-
-    const sourceMaps = awaitHelpers.awaitFn(glob, `${dirPath}/${mapFilePattern}`)
-    for (let mapFile of sourceMaps) {
-      try {
-        common.uploadMapFile(mapFile, dirPath, stripPrefix, releaseFilesUrl, appUrl, orgToken)
-      } catch (err) {
-        console.log(`[error] uploading '${mapFile}'.\n  Sentry replied with ` +
-                    `${err.statusCode}: '${err.body}'`)
-      }
-    }
-  })()
-}
+uploader(dirPath, pkgVersion, appUrl, orgToken, sentryProject, mapFilePattern, stripPrefix, sentryUrl, sentryOrganization)

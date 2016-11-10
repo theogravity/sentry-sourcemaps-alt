@@ -19,7 +19,18 @@ and gracefully uploading them to your Sentry instance.
 
 This is forked off the [`sentry-sourcemaps`](https://github.com/Polyconseil/sentry-sourcemaps) project. 
 
-The core difference is that this works against a local directory instead of pulling a package from NPM to find sourcemaps to upload.
+The core differences:
+ 
+* Retooled to work against a local directory instead of pulling a package from NPM to find sourcemaps to upload
+* upload map via registry removed (if you want that, use the original project instead)
+* exposed upload API for use in your node code.
+
+```
+const uploader = require('sentry-sourcemaps-alt')
+
+// see src/uploader.js for more info
+uploader(dirPath, pkgVersion, appUrl, orgToken, sentryProject, mapFilePattern, stripPrefix, sentryUrl, sentryOrganization)
+```
 
 ## How it works
 

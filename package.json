@@ -1,8 +1,8 @@
 {
   "name": "sentry-sourcemaps-alt",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Upload your Javascript source maps to Sentry from a specified directory",
-  "main": "src/cli.js",
+  "main": "src/uploader.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/theogravity/sentry-sourcemaps-alt"
