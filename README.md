@@ -24,6 +24,7 @@ The core differences:
 * Retooled to work against a local directory instead of pulling a package from NPM to find sourcemaps to upload
 * upload map via registry removed (if you want that, use the original project instead)
 * exposed upload API for use in your node code.
+* adds a url path prefix option
 
 ```
 const uploader = require('sentry-sourcemaps-alt')
@@ -86,6 +87,12 @@ For instance, if your MAP files look like './built-app/dist/libraries/js/foo.map
 and the MAP file itself is hosted at '<APP_URL>/libraries/js/foo.map', then
 the appropriate prefix would be 'built-app/dist'.
 
+##### --map-url-prefix 
+
+prepend a prefix to access your MAP files. 
+
+For instance, if your map is hosted at '<APP_URL>/static/js/foo.map' instead of '<APP_URL>/libraries/js/foo.map'
+after using --strip-prefix to remove './built-app/dist/libraries', you use this option to add the 'static' path
 
 ## Docker Image
 

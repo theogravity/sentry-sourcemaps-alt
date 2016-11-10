@@ -33,6 +33,9 @@ Usage:  ${common.PROGRAM_NAME} [OPTIONS] <PATH> <VERSION> <APP_URL> <ORG_TOKEN> 
       For instance, if your MAP files look like './built-app/dist/libraries/js/foo.map'
       and the MAP file itself is hosted at '<APP_URL>/libraries/js/foo.map', then
       the appropriate prefix would be 'built-app/dist'.
+  --map-url-prefix : prepend a prefix to access your MAP files. 
+      For instance, if your map is hosted at '<APP_URL>/static/js/foo.map' instead of '<APP_URL>/libraries/js/foo.map'
+      after using --strip-prefix to remove './built-app/dist/libraries', you use this option to add the 'static' path
 `)
   process.exit(1)
 }
@@ -47,5 +50,6 @@ const sentryUrl = yargs.argv.sentryUrl
 const sentryOrganization = yargs.argv.sentryOrganization
 const mapFilePattern = yargs.argv.pattern
 const stripPrefix = yargs.argv.stripPrefix
+const mapUrlPrefix = yargs.argv.mapUrlPrefix
 
-uploader(dirPath, pkgVersion, appUrl, orgToken, sentryProject, mapFilePattern, stripPrefix, sentryUrl, sentryOrganization)
+uploader(dirPath, pkgVersion, appUrl, orgToken, sentryProject, mapFilePattern, stripPrefix, sentryUrl, sentryOrganization, mapUrlPrefix)

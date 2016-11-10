@@ -7,7 +7,7 @@ const awaitHelpers = require('./await_helpers.js')
 const glob = require('glob')
 const common = require('./common.js')
 
-module.exports = function uploadMapFiles (dirPath, pkgVersion, appUrl, orgToken, sentryProject, mapFilePattern, stripPrefix, sentryUrl, sentryOrganization) {
+module.exports = function uploadMapFiles (dirPath, pkgVersion, appUrl, orgToken, sentryProject, mapFilePattern, stripPrefix, sentryUrl, sentryOrganization, mapUrlPrefix) {
 
   orgToken = new Buffer(`${orgToken}:`).toString('base64')
   stripPrefix = stripPrefix || 'dist'
@@ -30,7 +30,7 @@ module.exports = function uploadMapFiles (dirPath, pkgVersion, appUrl, orgToken,
       const sourceMaps = awaitHelpers.awaitFn(glob, `${dirPath}/${mapFilePattern}`)
       for (let mapFile of sourceMaps) {
         try {
-          common.uploadMapFile(mapFile, dirPath, stripPrefix, releaseFilesUrl, appUrl, orgToken)
+          common.uploadMapFile(mapFile, dirPath, stripPrefix, releaseFilesUrl, appUrl, orgToken, mapUrlPrefix)
         } catch (err) {
           console.log(`[error] uploading '${mapFile}'.\n  Sentry replied with ` +
             `${err.statusCode}: '${err.body}'`)

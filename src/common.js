@@ -15,9 +15,13 @@ function strippedPathAfter (str, prefix) {
   return lastPart.replace(/^\/|\/$/g, '')
 }
 
-function uploadMapFile (mapFile, dirPath, stripPrefix, releaseFilesUrl, appUrl, orgToken) {
+function uploadMapFile (mapFile, dirPath, stripPrefix, releaseFilesUrl, appUrl, orgToken, mapUrlPrefix) {
   const mapFilePackagePath = strippedPathAfter(mapFile, path.join(dirPath, 'package'))
-  const mapFileStrippedPath = strippedPathAfter(mapFilePackagePath, stripPrefix)
+  let mapFileStrippedPath = strippedPathAfter(mapFilePackagePath, stripPrefix)
+
+  if (mapUrlPrefix) {
+    mapFileStrippedPath = path.join(mapUrlPrefix, mapFileStrippedPath)
+  }
 
   const response = awaitHelpers.awaitFn(request, {
     url: releaseFilesUrl,
@@ -27,7 +31,7 @@ function uploadMapFile (mapFile, dirPath, stripPrefix, releaseFilesUrl, appUrl, 
     },
     formData: {
       file: fs.createReadStream(mapFile),
-      name: `${appUrl}/${mapFileStrippedPath}`,
+      name: appUrl ? `${appUrl}/${mapFileStrippedPath}` : mapFileStrippedPath,
     },
   })
   if ([200, 201, 409].indexOf(response.statusCode) === -1) {
