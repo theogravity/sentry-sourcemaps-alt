@@ -1,11 +1,11 @@
 {
-  "name": "sentry-sourcemaps",
+  "name": "sentry-sourcemaps-alt",
   "version": "0.2.1",
-  "description": "Upload your Javascript source maps to Sentry",
+  "description": "Upload your Javascript source maps to Sentry from a specified directory",
   "main": "src/cli.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/polyconseil/sentry-sourcemaps"
+    "url": "https://github.com/theogravity/sentry-sourcemaps-alt"
   },
   "engines": {
     "node": ">=5.8"
@@ -41,8 +41,6 @@
     "asyncawait": "^1.0.3",
     "bluebird": "^3.3.4",
     "request": "^2.69.0",
-    "tar.gz": "^1.0.3",
-    "temp": "^0.8.3",
     "yargs": "^4.2.0"
   }
 }

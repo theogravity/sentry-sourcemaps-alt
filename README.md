@@ -16,35 +16,40 @@ It does that seamlessly by downloading your application's package from the NPM
 registry (even private ones, of course), looking at the source maps within it,
 and gracefully uploading them to your Sentry instance.
 
+## Fork notice
+
+This is forked off the [`sentry-sourcemaps`](https://github.com/Polyconseil/sentry-sourcemaps) project. 
+
+The core difference is that this works against a local directory instead of pulling a package from NPM to find sourcemaps to upload.
 
 ## How it works
 
 Here is a sample CLI usage:
 
     $ npm install -g sentry-sourcemaps
-    $ sentry-sourcemaps --sentry-url https://my.sentry.url foobar_app 1.0.0 https://foobar.org TOKEN
+    $ sentry-sourcemaps --sentry-url https://my.sentry.url . 1.0.0 https://foobar.org TOKEN PROJECT_NAME
 
-As you can see, there are 4 mandatory parameters:
+As you can see, there are 5 mandatory parameters:
 
-* Your application's NPM package name;
+* Your application's root directory;
 * The desired release version;
 * The URL onto which your application is deployed;
 * The Sentry Token needed to push to the Sentry API.
+* The name under which your project is named within Sentry.
 
 The application will [create a release][create_release] and upload every MAP file for your app onto
 the designed Sentry server.
-
 
 ## Usage
 
 Typical command line:
 
-    sentry-sourcemaps [OPTIONS] <PACKAGE> <VERSION> <APP_URL> <ORG_TOKEN>
+    sentry-sourcemaps [OPTIONS] <PATH> <VERSION> <APP_URL> <ORG_TOKEN> <PROJECT_NAME>
 
 ### Parameters
 
-##### PACKAGE
- is the NPM package name for your application on the registry.
+##### PATH
+ is the root of your application project.
 ##### VERSION
  is the target version of that package.
 ##### APP_URL
@@ -60,14 +65,8 @@ The URL to your Sentry server. Defaults to 'https://app.getsentry.com'
 ##### --sentry-organization
 The organization to which the project belongs. Defaults to 'sentry'
 
-##### --sentry-project
-The name under which your project is named within Sentry. Defaults to <PACKAGE>.
-
 ##### --pattern
 The MAP files search pattern. Defaults to '**/*.map'
-
-##### --registry
-Your NPM registry URL, or the default one for your system.
 
 ##### --strip-prefix
 
