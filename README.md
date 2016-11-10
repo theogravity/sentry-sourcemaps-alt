@@ -1,9 +1,8 @@
 # sentry-sourcemaps
 
-[![Build Status](https://travis-ci.org/Polyconseil/sentry-sourcemaps.svg?branch=master)](https://travis-ci.org/Polyconseil/sentry-sourcemaps)
-[![codecov.io](https://codecov.io/github/Polyconseil/sentry-sourcemaps/coverage.svg?branch=master)](https://codecov.io/github/Polyconseil/sentry-sourcemaps?branch=master)
+[![Build Status](https://travis-ci.org/theogravity/sentry-sourcemaps-alt.svg?branch=master)](https://travis-ci.org/theogravity/sentry-sourcemaps-alt)
+[![codecov.io](https://codecov.io/github/theogravity/sentry-sourcemaps-alt/coverage.svg?branch=master)](https://codecov.io/github/Polyconseil/sentry-sourcemaps-alt?branch=master)
 [![js-standard-style](https://img.shields.io/badge/code%20style-standard-brightgreen.svg)](http://standardjs.com/)
-
 
 Sentry 8 comes with a brand new [Releases API][release_api] that finally enables us to
 upload JavaScript Source Maps directly to Sentry, and avoid the costly and fragile
@@ -27,7 +26,7 @@ The core difference is that this works against a local directory instead of pull
 Here is a sample CLI usage:
 
     $ npm install -g sentry-sourcemaps
-    $ sentry-sourcemaps --sentry-url https://my.sentry.url . 1.0.0 https://foobar.org TOKEN PROJECT_NAME
+    $ sentry-sourcemaps-alt --sentry-url https://my.sentry.url . 1.0.0 https://foobar.org TOKEN PROJECT_NAME
 
 As you can see, there are 5 mandatory parameters:
 
@@ -44,7 +43,7 @@ the designed Sentry server.
 
 Typical command line:
 
-    sentry-sourcemaps [OPTIONS] <PATH> <VERSION> <APP_URL> <ORG_TOKEN> <PROJECT_NAME>
+    sentry-sourcemaps-alt [OPTIONS] <PATH> <VERSION> <APP_URL> <ORG_TOKEN> <PROJECT_NAME>
 
 ### Parameters
 

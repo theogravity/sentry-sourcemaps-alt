@@ -1,6 +1,6 @@
 {
   "name": "sentry-sourcemaps-alt",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Upload your Javascript source maps to Sentry from a specified directory",
   "main": "src/cli.js",
   "repository": {
@@ -30,7 +30,7 @@
     "nock": "^7.2.2"
   },
   "bin": {
-    "sentry-sourcemaps": "./src/cli.js"
+    "sentry-sourcemaps-alt": "./src/cli.js"
   },
   "files": [
     "src",
