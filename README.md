@@ -25,6 +25,7 @@ The core differences:
 * upload map via registry removed (if you want that, use the original project instead)
 * exposed upload API for use in your node code.
 * adds a url path prefix option
+* Uses Auth Bearer token instead of legacy API key (see [here](https://docs.sentry.io/api/auth/)) for auth
 
 ```
 const uploader = require('sentry-sourcemaps-alt')

@@ -15,9 +15,8 @@ function strippedPathAfter (str, prefix) {
   return lastPart.replace(/^\/|\/$/g, '')
 }
 
-function uploadMapFile (mapFile, dirPath, stripPrefix, releaseFilesUrl, appUrl, orgToken, mapUrlPrefix) {
-  const mapFilePackagePath = strippedPathAfter(mapFile, path.join(dirPath, 'package'))
-  let mapFileStrippedPath = strippedPathAfter(mapFilePackagePath, stripPrefix)
+function uploadMapFile (mapFile, stripPrefix, releaseFilesUrl, appUrl, orgToken, mapUrlPrefix) {
+  let mapFileStrippedPath = strippedPathAfter(mapFile, stripPrefix)
 
   if (mapUrlPrefix) {
     mapFileStrippedPath = path.join(mapUrlPrefix, mapFileStrippedPath)
@@ -27,7 +26,7 @@ function uploadMapFile (mapFile, dirPath, stripPrefix, releaseFilesUrl, appUrl, 
     url: releaseFilesUrl,
     method: 'POST',
     headers: {
-      'Authorization': `Basic ${orgToken}`,
+      'Authorization': `Bearer ${orgToken}`,
     },
     formData: {
       file: fs.createReadStream(mapFile),
@@ -44,7 +43,7 @@ function createSentryRelease (releaseUrl, pkgVersion, orgToken) {
     url: releaseUrl,
     method: 'POST',
     headers: {
-      'Authorization': `Basic ${orgToken}`,
+      'Authorization': `Bearer ${orgToken}`,
     },
     json: true,
     body: {
