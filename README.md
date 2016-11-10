@@ -30,7 +30,7 @@ The core differences:
 const uploader = require('sentry-sourcemaps-alt')
 
 // see src/uploader.js for more info
-uploader(dirPath, pkgVersion, appUrl, orgToken, sentryProject, mapFilePattern, stripPrefix, sentryUrl, sentryOrganization)
+uploader(dirPath, pkgVersion, appUrl, orgToken, sentryProject, mapFilePattern, stripPrefix, sentryUrl, sentryOrganization, mapUrlPrefix)
 ```
 
 ## How it works
