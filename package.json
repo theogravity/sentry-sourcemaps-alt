@@ -1,6 +1,6 @@
 {
   "name": "sentry-sourcemaps-alt",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "Upload your Javascript source maps to Sentry from a specified directory",
   "main": "src/uploader.js",
   "repository": {
