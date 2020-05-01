@@ -13,7 +13,9 @@
   "scripts": {
     "eslint": "eslint src/**/*.js",
     "test": "mocha src/**/*.spec.js",
-    "cover": "istanbul cover _mocha -- src/**/*.spec.js"
+    "cover": "istanbul cover _mocha -- src/**/*.spec.js",
+    "snyk-protect": "snyk protect",
+    "prepublish": "npm run snyk-protect"
   },
   "keywords": [],
   "author": "Polyconseil",
@@ -41,6 +43,8 @@
     "asyncawait": "^1.0.3",
     "bluebird": "^3.3.4",
     "request": "^2.83.0",
-    "yargs": "^4.2.0"
-  }
+    "yargs": "^4.2.0",
+    "snyk": "^1.316.1"
+  },
+  "snyk": true
 }
